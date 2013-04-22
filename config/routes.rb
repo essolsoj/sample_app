@@ -13,8 +13,19 @@ SampleApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
 
 # users controller
+  resources :users #endow app with all actions needed for a RESTful users resource
+  # HTTP requests       Action   Named route   purpose
+  #  GET /users         index    users_path    page to list all users
+  #  GET /users/1       show     user_path(user) page to show user
+  #  GET /users/new     new      new_user_path page to make a new user (signup)
+  #  POST  /users       create   users_path  create a new user
+  #  GET /users/1/edit  edit     edit_user_path(user)  page to edit user with id 1
+  #  PUT /users/1       update   user_path(user) update user
+  #  DELETE  /users/1   destroy  user_path(user) delete user
+  # also creastes user_path as /users
   match '/signup', to: 'users#new'
 
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
