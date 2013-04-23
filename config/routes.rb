@@ -12,7 +12,7 @@ SampleApp::Application.routes.draw do
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
 
-# users controller
+# users controller (REST)
   resources :users #endow app with all actions needed for a RESTful users resource
   # HTTP requests       Action   Named route   purpose
   #  GET /users         index    users_path    page to list all users
@@ -25,7 +25,11 @@ SampleApp::Application.routes.draw do
   # also creastes user_path as /users
   match '/signup', to: 'users#new'
 
-  
+#sessions controller (REST)
+resources :sessions, only: [:new, :create, :destroy]  
+match '/signin',  to: 'sessions#new'
+#force HTTP method DELETE
+match '/signout', to: 'sessions#destroy', via: :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

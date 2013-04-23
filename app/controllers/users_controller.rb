@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   	@user = User.new(params[:user])
     if @user.save
       # Handle a successful save: go to /users/id where id is taken form the @user name automatically
-      flash[:success] = "Welcome to the Sample App!"
+      sign_in @user
+      flash[:success] = "Welcome "+@user.name+" to the Sample App!"
       redirect_to @user
     else
       render 'new'

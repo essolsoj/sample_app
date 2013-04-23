@@ -42,8 +42,15 @@ describe User do
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:remember_token) }
   it { should be_valid }
 
+# REMEMBER TOKEN TESTS
+ describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
+  end
+  
 # PASSWORD TESTS
   describe "when password is not present" do
     before { @user.password = @user.password_confirmation = " " }
