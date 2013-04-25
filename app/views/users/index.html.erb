@@ -1,0 +1,23 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+       <%= gravatar_for user, size: 52 %>
+       <%= link_to user.name, user %>
+       <% # if the current signed in user is admin and
+          # the user being  displaued is not the current 
+          # signed in user
+       	  if current_user.admin? && !(current_user==user) %>
+      	    <% # use delete HTTP method in the links to delete%>
+    	    | <%= link_to "delete", user, method: :delete, data: 
+    		{ confirm: "You sure?" } %>
+  	    <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>

@@ -41,12 +41,31 @@ describe User do
   it { should respond_to(:name) }
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
+  it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:remember_token) }
   it { should be_valid }
-
-# REMEMBER TOKEN TESTS
- describe "remember token" do
+  it { should_not be_admin }
+  
+  describe "accessible attributes" do
+    it "should not allow access to admin field" do
+      expect do
+         @user = User.new(name: "Example User", email: "user@example.com",
+                  password: "foobar", password_confirmation: "foobar", admin: true)
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end    
+  end
+  
+  describe "with admin attribute set to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+    end
+    it { should be_admin }
+  end
+  
+  # REMEMBER TOKEN TESTS
+  describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end

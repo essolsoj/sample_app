@@ -14,6 +14,8 @@ SampleApp::Application.routes.draw do
 
 # users controller (REST)
   resources :users #endow app with all actions needed for a RESTful users resource
+
+  # controller is "users_controller"
   # HTTP requests       Action   Named route   purpose
   #  GET /users         index    users_path    page to list all users
   #  GET /users/1       show     user_path(user) page to show user
