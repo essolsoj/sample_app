@@ -33,6 +33,8 @@ match '/signin',  to: 'sessions#new'
 #force HTTP method DELETE
 match '/signout', to: 'sessions#destroy', via: :delete
 
+#microposts controller (REST)
+resources :microposts, only: [:create, :destroy]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

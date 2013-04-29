@@ -8,12 +8,7 @@ class UsersController < ApplicationController
     if signed_in? then redirect_to root_url, notice: "Operation not allowed" end
   end
 
-  def signed_in_user
-    #signedin: user has verified password
-    store_location
-    redirect_to signin_url, notice: "Please sign in." unless signed_in?
-  end
-  def correct_user
+   def correct_user
       @user = User.find(params[:id]) #the user that the page tries to access
       redirect_to(root_path) unless (current_user==@user) #current user is the signed in user
   end
@@ -27,6 +22,7 @@ class UsersController < ApplicationController
   end
   def show
     @user = User.find(params[:id]) #available in corresponding erb layouts
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
   def create
   	@user = User.new(params[:user])
